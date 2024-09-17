@@ -3,16 +3,18 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import config from '@/config';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const baseURL = config.BASE_URL_API;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/auth/register', {
+      await axios.post(`${baseURL}/auth/register`, {
         username,
         password,
       });

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import config from '@/config';
 
 const CreateJob = () => {
   const [jobData, setJobData] = useState({
@@ -17,6 +18,7 @@ const CreateJob = () => {
     link: '',
   });
   const router = useRouter();
+  const baseURL = config.BASE_URL_API;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ const CreateJob = () => {
         return;
       }
 
-      await axios.post('http://localhost:5000/job', jobData, {
+      await axios.post(`${baseURL}/job`, jobData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
