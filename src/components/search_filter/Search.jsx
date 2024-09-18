@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import { Input } from '@material-tailwind/react';
+import React from 'react';
+import { MdSearch } from 'react-icons/md';
 
 const Search = () => {
   return (
-    <>
-      <input
-        className="h-10 p-2 border border-gray-300 rounded-md "
-        type="search"
-        placeholder="Cari..."
-      />
-    </>
+    <div className="w-fit">
+      <Input label="search" icon={<MdSearch />} />
+    </div>
   );
 };
 
