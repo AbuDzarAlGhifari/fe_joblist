@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import TableJob from '@/components/Tabel/TabelJob';
 import Search from '@/components/search_filter/Search';
 import config from '@/config';
+import { Button } from '@material-tailwind/react';
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
@@ -35,7 +36,6 @@ const JobList = () => {
     fetchJobs();
   }, [router, baseURL]);
 
-  // Define the columns for the table
   const columns = [
     { key: 'perusahaan', title: 'Perusahaan' },
     { key: 'lokasi', title: 'lokasi' },
@@ -47,7 +47,6 @@ const JobList = () => {
     { key: 'keterangan', title: 'Keterangan' },
   ];
 
-  // Define the action buttons for each row
   const renderAction = (job) => (
     <div className="space-x-2">
       <button
@@ -83,12 +82,15 @@ const JobList = () => {
     <>
       <div className="flex items-center justify-between m-2">
         <Search />
-        <button
-          className="p-2 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
+        <Button
+          variant="gradient"
+          size="md"
+          color="light-blue"
+          type="submit"
           onClick={() => router.push('/job-list/create')}
         >
           Tambah Lamaran
-        </button>
+        </Button>
       </div>
       <TableJob columns={columns} data={jobs} renderAction={renderAction} />
     </>

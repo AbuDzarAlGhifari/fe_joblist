@@ -1,41 +1,57 @@
+'use client';
+
 import React from 'react';
+import { Card, CardBody } from '@material-tailwind/react';
 
 const TableJob = ({ columns, data, renderAction }) => {
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB');
+  };
+
   return (
-    <table className="min-w-full divide-y divide-gray-200">
-      <thead>
-        <tr>
-          {columns.map((column) => (
-            <th
-              key={column.key}
-              className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-            >
-              {column.title}
-            </th>
-          ))}
-          <th className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-            Action
-          </th>
-        </tr>
-      </thead>
-      <tbody className="bg-white divide-y divide-gray-200">
-        {data.map((row, rowIndex) => (
-          <tr key={rowIndex}>
-            {columns.map((column) => (
-              <td
-                key={column.key}
-                className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"
-              >
-                {row[column.key]}
-              </td>
+    <Card className="overflow-hidden shadow-lg">
+      <CardBody className="p-4">
+        <table className="w-full text-left">
+          <thead>
+            <tr>
+              {columns.map((column) => (
+                <th
+                  key={column.key}
+                  className="px-4 py-2 text-sm font-medium text-white bg-blue-300 border"
+                >
+                  {column.title}
+                </th>
+              ))}
+              <th className="px-4 py-2 text-sm font-medium text-white bg-blue-300 border">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, rowIndex) => (
+              <tr key={rowIndex} className="border-b">
+                {columns.map((column) => (
+                  <td
+                    key={column.key}
+                    className="px-4 py-2 text-sm text-gray-700 border whitespace-nowrap"
+                  >
+                    {['tanggal_lamar', 'tanggal_batas_lamaran'].includes(
+                      column.key
+                    )
+                      ? formatDate(row[column.key])
+                      : row[column.key]}
+                  </td>
+                ))}
+                <td className="px-4 py-2 text-sm text-gray-700 border whitespace-nowrap">
+                  {renderAction(row)}
+                </td>
+              </tr>
             ))}
-            <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-              {renderAction(row)}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </CardBody>
+    </Card>
   );
 };
 
