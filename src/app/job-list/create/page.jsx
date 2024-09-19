@@ -4,8 +4,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import config from '@/config';
+import { Button } from '@material-tailwind/react';
+import ModalCreate from './_partials/ModalCreate';
 
 const CreateJob = () => {
+  // const [openModal, setOpenModal] = useState('false');
   const [jobData, setJobData] = useState({
     perusahaan: '',
     lokasi: '',
@@ -156,15 +159,19 @@ const CreateJob = () => {
             />
           </div>
           <div className="col-span-full">
-            <button
-              className="w-full p-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600"
+            <Button
               type="submit"
+              size="md"
+              fullWidth
+              color="blue"
+              // onClick={setOpenModal(true)}
             >
               Submit
-            </button>
+            </Button>
           </div>
         </form>
       </section>
+      {/* <ModalCreate open={setOpenModal(true)} close={setOpenModal(false)} /> */}
     </div>
   );
 };
