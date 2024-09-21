@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import TableJob from '@/components/Tabel/TabelJob';
 import Search from '@/components/search_filter/Search';
 import config from '@/config';
-import { Button } from '@material-tailwind/react';
+import { Button, IconButton } from '@material-tailwind/react';
+import { BsThreeDots } from 'react-icons/bs';
 
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
@@ -48,19 +49,15 @@ const JobList = () => {
   ];
 
   const renderAction = (job) => (
-    <div className="space-x-2">
-      <button
-        className="px-3 py-1 text-sm text-white bg-blue-500 rounded"
-        onClick={() => router.push(`/job-list/edit/${job.id}`)}
-      >
-        Edit
-      </button>
-      <button
+    <div className="flex items-center justify-center space-x-2">
+      <BsThreeDots />
+
+      {/* <Button
         className="px-3 py-1 text-sm text-white bg-red-500 rounded"
         onClick={() => handleDelete(job.id)}
       >
         Delete
-      </button>
+      </Button> */}
     </div>
   );
 

@@ -18,12 +18,12 @@ const TableJob = ({ columns, data, renderAction }) => {
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-300 border"
+                  className="px-4 py-2 text-sm font-medium text-center text-white bg-indigo-400 border"
                 >
                   {column.title}
                 </th>
               ))}
-              <th className="px-4 py-2 text-sm font-medium text-white bg-blue-300 border">
+              <th className="px-4 py-2 text-sm font-medium text-center text-white bg-indigo-400 border">
                 Action
               </th>
             </tr>
