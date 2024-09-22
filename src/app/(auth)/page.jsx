@@ -5,8 +5,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
 import config from '@/config';
-import { Input } from '@material-tailwind/react';
-import { Button } from '@material-tailwind/react';
+import { Input, Button } from '@material-tailwind/react';
 import { MdErrorOutline, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
 const Login = () => {
@@ -60,72 +59,94 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <section className="p-10 bg-white shadow-md rounded-xl sm:w-96">
-        <h2 className="mb-4 text-2xl font-semibold">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-5">
-            <Input
-              variant="standard"
-              label="Username"
-              placeholder="username"
-              value={username}
-              error={!!errors.username}
-              fullWidth
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            {errors.username && (
-              <div className="flex items-center gap-1 my-1 text-xs text-red-500 text-end">
-                <MdErrorOutline />
-                <p>{errors.username}</p>
-              </div>
-            )}
-          </div>
-          <div className="relative mb-5">
-            <Input
-              variant="standard"
-              label="Password"
-              placeholder="password"
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              error={!!errors.password}
-              fullWidth
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div
-              className="absolute transform -translate-y-1/2 cursor-pointer right-3 top-1/2"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
+    <div className="flex items-center justify-center min-h-screen ">
+      <div className="flex w-full max-w-5xl gap-10 mx-auto">
+        {/* Login Form */}
+        <section className="p-6 bg-[#1e123b] text-white shadow-md rounded-xl w-full max-w-md lg:w-96">
+          <h2 className="mb-4 text-2xl font-semibold lg:text-3xl">Login</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-5">
+              <Input
+                label="Username"
+                placeholder="username"
+                value={username}
+                error={!!errors.username}
+                fullWidth
+                className="text-yellow-100 placeholder-gray-400 border-white "
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              {errors.username && (
+                <div className="flex items-center gap-1 my-1 text-xs text-red-500 text-end">
+                  <MdErrorOutline />
+                  <p>{errors.username}</p>
+                </div>
+              )}
             </div>
-            {errors.password && (
-              <div className="flex items-center gap-1 my-1 text-xs text-red-500 text-end">
-                <MdErrorOutline />
-                <p>{errors.password}</p>
+            <div className="relative mb-5">
+              <Input
+                label="Password"
+                placeholder="password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                error={!!errors.password}
+                fullWidth
+                className="text-white placeholder-gray-400 border-white"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div
+                className="absolute transform -translate-y-1/2 cursor-pointer right-3 top-1/2"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
               </div>
-            )}
-          </div>
+              {errors.password && (
+                <div className="flex items-center gap-1 my-1 text-xs text-red-500 text-end">
+                  <MdErrorOutline />
+                  <p>{errors.password}</p>
+                </div>
+              )}
+            </div>
 
-          <Button
-            variant="gradient"
-            size="md"
-            color="light-blue"
-            type="submit"
-            fullWidth
-            loading={loading}
-            disabled={loading}
-            className="text-center"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </Button>
-          <h1
-            className="w-full p-2 mt-2 text-sm font-semibold text-blue-400 cursor-pointer text-end hover:text-blue-500"
-            onClick={handleRegister}
-          >
-            Register
-          </h1>
-        </form>
-      </section>
+            <Button
+              variant="gradient"
+              size="md"
+              type="submit"
+              fullWidth
+              loading={loading}
+              disabled={loading}
+              className="text-center text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:bg-gradient-to-r hover:from-purple-700 hover:to-indigo-700"
+            >
+              {loading ? 'Logging in...' : 'Login'}
+            </Button>
+
+            <div className="mt-3 text-sm text-center">
+              <a href="#" className="">
+                Forgot password?
+              </a>
+            </div>
+            <div className="mt-3 text-sm text-center text-gray-400">
+              <p>Or</p>
+              <a onClick={handleRegister} className="">
+                Dont have an account? Signup
+              </a>
+            </div>
+            <p className="mt-5 text-xs text-center text-gray-500">
+              Create BY AO Team
+            </p>
+          </form>
+        </section>
+
+        {/* Quote Section */}
+        <div className="items-center justify-center hidden w-1/2 md:flex">
+          <div className="text-justify">
+            <p className="text-xl italic lg:text-2xl">
+              The only way to do great work is to love what you do. If you
+              haven’t found it yet, keep looking. Don’t settle.
+            </p>
+            <p className="mt-4 text-lg font-bold">- Steve Jobs</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
