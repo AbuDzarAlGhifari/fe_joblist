@@ -12,6 +12,10 @@ module.exports = withMT({
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      backgroundImage: {
+        'custom-gradient':
+          'linear-gradient(70deg, rgba(95,0,129,0.7) 100%, rgba(34,15,46,0.7) 100%)',
+      },
     },
   },
   plugins: [],
