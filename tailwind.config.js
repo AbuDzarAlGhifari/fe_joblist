@@ -8,6 +8,10 @@ module.exports = withMT({
   ],
   theme: {
     extend: {
+      fontFamily: {
+        poetsen: ['Poetsen One, sans-serif'],
+        noto: ['Noto Sans, sans-serif'],
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',

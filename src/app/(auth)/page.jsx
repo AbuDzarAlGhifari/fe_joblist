@@ -1,13 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
 import config from '@/config';
 import { Input, Button } from '@material-tailwind/react';
-import { MdErrorOutline, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import { Poiret_One } from 'next/font/google';
+import { MdErrorOutline } from 'react-icons/md';
+import { RiEyeCloseLine, RiEyeFill } from 'react-icons/ri';
+import Link from 'next/link';
+import quote from '../dummy/quote';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -15,7 +16,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [randomQuote, setRandomQuote] = useState(null);
   const baseURL = config.BASE_URL_API;
 
   const validationSchema = yup.object({
@@ -53,11 +54,24 @@ const Login = () => {
     }
   };
 
-  const handleRegister = () => router.push('/register');
-
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
+  const getRandomQuote = () => {
+    const randomIndex = Math.floor(Math.random() * quote.length);
+    setRandomQuote(quote[randomIndex]);
+  };
+
+  useEffect(() => {
+    getRandomQuote();
+
+    const interval = setInterval(() => {
+      getRandomQuote();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#5F0081] via-[#220F2E] to-[#15091c]">
@@ -66,16 +80,19 @@ const Login = () => {
 
         <div class=" rounded-xl bg-gradient-to-br from-[#8E62FF]  to-[#b496ff] p-[1px]">
           <section className="p-6 bg-gradient-to-br  from-[#291336] to-[#300341] text-white shadow-md rounded-xl w-full max-w-md lg:w-80">
-            <h2 className="mb-4 text-2xl font-semibold lg:text-3xl">Login</h2>
+            <h2 className="text-2xl font-poetsen mb-11 lg:text-3xl">Login</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-5">
                 <Input
                   label="Username"
                   placeholder="username"
+                  color="deep-purple"
                   value={username}
                   error={!!errors.username}
                   fullWidth
-                  className="text-yellow-100 placeholder-white border-white "
+                  labelProps={{
+                    className: 'text-white',
+                  }}
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 {errors.username && (
@@ -85,22 +102,26 @@ const Login = () => {
                   </div>
                 )}
               </div>
+
               <div className="relative mb-5">
                 <Input
                   label="Password"
                   placeholder="password"
+                  color="deep-purple"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   error={!!errors.password}
                   fullWidth
-                  className="text-white placeholder-white border-white"
+                  labelProps={{
+                    className: 'text-white',
+                  }}
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <div
-                  className="absolute transform -translate-y-1/2 cursor-pointer right-3 top-1/2"
+                  className="absolute text-purple-200 transform -translate-y-1/2 cursor-pointer right-3 top-1/2"
                   onClick={togglePasswordVisibility}
                 >
-                  {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
+                  {showPassword ? <RiEyeFill /> : <RiEyeCloseLine />}
                 </div>
                 {errors.password && (
                   <div className="flex items-center gap-1 my-1 text-xs text-red-500 text-end">
@@ -117,24 +138,28 @@ const Login = () => {
                 fullWidth
                 loading={loading}
                 disabled={loading}
-                className="text-center text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:bg-gradient-to-r hover:from-purple-700 hover:to-indigo-700"
+                className="text-center text-white capitalize font-noto bg-gradient-to-r from-[#580475] via-[#8740CD] to-[#8E62FF]"
               >
                 {loading ? 'Logging in...' : 'Login'}
               </Button>
 
               <div className="mt-3 text-sm text-center">
-                <a href="#" className="">
+                <Link href="/register" className="">
                   Forgot password?
-                </a>
+                </Link>
               </div>
-              <div className="mt-3 text-sm text-center text-whplaceholder-white">
-                <p>Or</p>
-                <a onClick={handleRegister} className="">
+              <div className="text-sm text-center text-whplaceholder-white">
+                <div className="flex items-center justify-center gap-4">
+                  <hr className="w-full border border-[#4D4D4D]" />
+                  <p className="my-3 text-[#4D4D4D]">Or</p>
+                  <hr className="w-full border border-[#4D4D4D]" />
+                </div>
+                <Link href="/register" className="">
                   Dont have an account? Signup
-                </a>
+                </Link>
               </div>
-              <p className="mt-5 text-xs text-center text-gray-500">
-                Create BY AO Team
+              <p className="mt-3 text-[11px] text-center ">
+                @Create BY AO Team
               </p>
             </form>
           </section>
@@ -142,13 +167,16 @@ const Login = () => {
 
         {/* Quote Section */}
         <div className="items-center justify-center hidden w-1/2 text-white md:flex">
-          <div className="text-justify">
-            <p className="text-xl lg:text-2xl">
-              &quot;The only way to do great work is to love what you do. If you
-              haven’t found it yet, keep looking. Don’t settle.&quot;
-            </p>
-            <p className="mt-4 text-lg font-bold">- &apos;Steve Jobs&apos;</p>
-          </div>
+          {randomQuote && (
+            <div className="text-justify">
+              <p className="text-xl text-gray-300 lg:text-2xl">
+                &quot;{randomQuote.quote}&quot;
+              </p>
+              <p className="mt-8 text-xl font-bold">
+                - &apos;{randomQuote.nama}&apos;
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
