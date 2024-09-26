@@ -77,7 +77,7 @@ const JobList = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between m-2">
+      <div className="flex items-center justify-between min-h-screen m-2 custom-gradient">
         <Search />
         <Button
           variant="gradient"
