@@ -73,20 +73,22 @@ const Login = () => {
     return () => clearInterval(interval);
   }, []);
 
+  /* bg-gradient-to-br from-[#5F0081] via-[#220F2E] to-[#15091c] */
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#5F0081] via-[#220F2E] to-[#15091c]">
+    <div className="flex items-center justify-center min-h-screen custom-gradient">
       <div className="flex items-center justify-center w-full max-w-4xl gap-10 mx-auto">
         {/* Login Form */}
 
-        <div class=" rounded-xl bg-gradient-to-br from-[#8E62FF]  to-[#b496ff] p-[1px]">
+        <div class="rounded-xl bg-gradient-to-br from-[#8E62FF]  to-[#b496ff] p-[0.5px]">
           <section className="p-6 bg-gradient-to-br  from-[#291336] to-[#300341] text-white shadow-md rounded-xl w-full max-w-md lg:w-80">
-            <h2 className="text-2xl font-poetsen mb-11 lg:text-3xl">Login</h2>
+            <h2 className="mb-10 text-2xl font-poetsen lg:text-3xl">Login</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-5">
                 <Input
                   label="Username"
                   placeholder="username"
-                  color="deep-purple"
+                  color="white"
                   value={username}
                   error={!!errors.username}
                   fullWidth
@@ -107,7 +109,7 @@ const Login = () => {
                 <Input
                   label="Password"
                   placeholder="password"
-                  color="deep-purple"
+                  color="white"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   error={!!errors.password}
@@ -138,7 +140,7 @@ const Login = () => {
                 fullWidth
                 loading={loading}
                 disabled={loading}
-                className="text-center text-white capitalize font-noto bg-gradient-to-r from-[#580475] via-[#8740CD] to-[#8E62FF]"
+                className="text-center text-white capitalize text-sm font-extrabold font-noto bg-gradient-to-r from-[#580475] via-[#8740CD] to-[#8E62FF]"
               >
                 {loading ? 'Logging in...' : 'Login'}
               </Button>
@@ -159,7 +161,7 @@ const Login = () => {
                 </Link>
               </div>
               <p className="mt-3 text-[11px] text-center ">
-                @Create BY AO Team
+                @Create BY <b>AO</b> Team
               </p>
             </form>
           </section>
@@ -169,7 +171,7 @@ const Login = () => {
         <div className="items-center justify-center hidden w-1/2 text-white md:flex">
           {randomQuote && (
             <div className="text-justify">
-              <p className="text-xl text-gray-300 lg:text-2xl">
+              <p className="text-3xl text-gray-300 lg:text-2xl">
                 &quot;{randomQuote.quote}&quot;
               </p>
               <p className="mt-8 text-xl font-bold">
