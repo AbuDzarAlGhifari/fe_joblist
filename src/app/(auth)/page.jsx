@@ -9,8 +9,10 @@ import { MdErrorOutline } from 'react-icons/md';
 import { RiEyeCloseLine, RiEyeFill } from 'react-icons/ri';
 import Link from 'next/link';
 import quote from '../dummy/quote';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

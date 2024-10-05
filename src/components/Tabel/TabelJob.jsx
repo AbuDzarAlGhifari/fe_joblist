@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Card, CardBody } from '@material-tailwind/react';
 
 const TableJob = ({ columns, data, renderAction }) => {
   const formatDate = (dateString) => {
@@ -10,22 +9,20 @@ const TableJob = ({ columns, data, renderAction }) => {
   };
 
   return (
-    <Card className="overflow-hidden shadow-lg">
-      <CardBody className="p-4">
-        <table className="w-full text-left">
-          <thead>
+    <div className="mx-3 overflow-hidden overflow-x-auto min-h-96">
+      <div className="p-3">
+        <table className="w-full">
+          <thead className="rounded-lg">
             <tr>
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className="px-4 py-2 text-sm font-medium text-center text-white bg-indigo-400 border"
+                  className="px-1 py-2 text-sm font-medium text-center text-white bg-indigo-400 border"
                 >
                   {column.title}
                 </th>
               ))}
-              <th className="px-4 py-2 text-sm font-medium text-center text-white bg-indigo-400 border">
-                Action
-              </th>
+              <th className="px-1 py-2 text-sm font-medium text-center text-white bg-indigo-400 border"></th>
             </tr>
           </thead>
           <tbody>
@@ -34,7 +31,7 @@ const TableJob = ({ columns, data, renderAction }) => {
                 {columns.map((column) => (
                   <td
                     key={column.key}
-                    className="px-4 py-2 text-sm text-gray-700 border whitespace-nowrap"
+                    className="px-4 py-2 text-sm text-white border whitespace-nowrap"
                   >
                     {['tanggal_lamar', 'tanggal_batas_lamaran'].includes(
                       column.key
@@ -50,8 +47,8 @@ const TableJob = ({ columns, data, renderAction }) => {
             ))}
           </tbody>
         </table>
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 };
 
