@@ -1,7 +1,7 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Joblistnow',
+  title: 'Joblistweb',
   description: 'Generate',
 };
 

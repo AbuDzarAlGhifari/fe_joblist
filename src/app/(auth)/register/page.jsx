@@ -12,7 +12,9 @@ import Link from 'next/link';
 
 const Register = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confpassword, setConfPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -21,7 +23,9 @@ const Register = () => {
 
   const validationSchema = yup.object({
     username: yup.string().required('Username cannot be empty'),
+    email: yup.string().required('Username cannot be empty'),
     password: yup.string().required('Password cannot be empty'),
+    confpassword: yup.string().required('Password cannot be empty'),
   });
 
   const handleSubmit = async (e) => {
@@ -29,12 +33,14 @@ const Register = () => {
     setLoading(true);
     try {
       await validationSchema.validate(
-        { username, password },
+        { username, email, password, confpassword },
         { abortEarly: false }
       );
       await axios.post(`${baseURL}/auth/register`, {
         username,
+        email,
         password,
+        confpassword,
       });
       router.push('/');
       console.log('Registered successfully');
@@ -88,18 +94,18 @@ const Register = () => {
                 label="Email"
                 placeholder="email"
                 color="white"
-                value={username}
-                error={!!errors.username}
+                value={email}
+                error={!!errors.email}
                 fullWidth
                 labelProps={{
                   className: 'text-white',
                 }}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              {errors.username && (
+              {errors.email && (
                 <div className="flex items-center gap-1 my-1 text-xs text-red-500 text-end">
                   <MdErrorOutline />
-                  <p>{errors.username}</p>
+                  <p>{errors.email}</p>
                 </div>
               )}
             </div>
@@ -138,13 +144,13 @@ const Register = () => {
                 placeholder="confirm password"
                 color="white"
                 type={showPassword ? 'text' : 'password'}
-                value={password}
-                error={!!errors.password}
+                value={confpassword}
+                error={!!errors.confpassword}
                 fullWidth
                 labelProps={{
                   className: 'text-white',
                 }}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setConfPassword(e.target.value)}
               />
               <div
                 className="absolute text-purple-200 transform -translate-y-1/2 cursor-pointer right-3 top-1/2"
@@ -152,10 +158,10 @@ const Register = () => {
               >
                 {showPassword ? <RiEyeFill /> : <RiEyeCloseLine />}
               </div>
-              {errors.password && (
+              {errors.confpassword && (
                 <div className="flex items-center gap-1 my-1 text-xs text-red-500 text-end">
                   <MdErrorOutline />
-                  <p>{errors.password}</p>
+                  <p>{errors.confpassword}</p>
                 </div>
               )}
             </div>
